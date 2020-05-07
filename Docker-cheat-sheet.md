@@ -33,12 +33,12 @@
 11. Build Dockerfile:  
 `docker build -t <name-for-image> <dir-of-Dockerfile>`  
 
-12. Allow docker container to use a local directory(volume) during runtime (like to access property files, so you can change them on fly):
-`docker run -p 80:80 -v <local-directory>:<where-to-access-in-docker-container> <image-name>`
+12. Mount a local directory(volume) for runtime (like to access property files, so you can change them on fly):  
+`docker run -p 80:80 -v <local-directory>:<where-to-access-in-container> <image-name>`  
 
 ## Dockerfile
 Dockerfile is built into an Image, which when run, becomes container.  
-
+Ideally we want one process per service as a container lasts one lifetime of a service. 
 A standard Dockerfile structure:  
 ```
 FROM <base-image-name>:<tag>

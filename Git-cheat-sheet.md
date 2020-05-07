@@ -133,17 +133,37 @@ Create a patch(always of a single commit, a patch looks like unix email structur
 3. To see changes in other branch: `git reflog show <branch-name>`  
 4. To move back to a commit using reflog: `git reset HEAD@{<head-position-in-reflog-in-number>} --soft`  
 
-## git ignore files
+## Git ignore files
 How to remove git ignored files from repo:  
 1. Create and commit the .gitignore file in repo  
 2. Remove all files that are to be removed from tracked status(on basis of .gitignore file): `git rm -r --cached .`  
 3. `git add .`  
 4. `git commit -m "fixed .gitignore files"`  
 5. `git push`  
+[Click here](https://gist.github.com/kanwarpannu/644b4dc3d9703e27c06c2e24967e41b6) for sample git ignore file.  
 
-## git config files
+## Git config files
 1. Add a global username to git config: `git config --global user.name "Your Name"`
 2. To add username local to a repo: `git config user.name "Your Name"`
 3. Add a global email: `git config --global user.email "you@example.com"`
 4. Create git alias commands (windows): `git config --global alias.gcob "checkout -b"`
-5. Create git alias commands (unix): `git config --global alias.gcob 'checkout -b'`
+5. Create git alias commands (unix): `git config --global alias.gcob 'checkout -b'`  
+6. List of all configs: `git config --list` or `git config --list --show-origin`  
+[Click here](https://gist.github.com/kanwarpannu/9f0e589295a21338e27a791b3095557c) for sample windows git config file.  
+
+## Git credential manager
+
+Git has 5 "main" modes of storing credentials for a repository.  
+1. *Default* - Don't store. Every connection will ask for a username and password.  
+2. *Cache* - Store credentials in memory for a small amount of time. Default timeout is 15 min.  
+`git config --global credential.helper cache`
+OR  
+`git config --global credential.helper 'cache --timeout 9000'` (Time in seconds) 
+3. *Store* - Store credentials to disk in a plain file.  
+`git config --global credential.helper store`  
+OR  
+`git config --global credential.helper 'store --file <dir>'`  
+4. *osxkeychain* (only on mac) - Store in apple keychain.  
+`git config --global credential.helper osxkeychain`  
+5. *windows credential manager* (windows) - Store in a windows credential manager (Search for credential manager in start menu).  
+`git config --global credential.helper manager`  
