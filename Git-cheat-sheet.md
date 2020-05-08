@@ -40,6 +40,10 @@ git pull
 git fetch origin/master
 git rebase origin/master
 ```  
+If you run into merge conflicts, resolve the issues manually and run following command to continue rebase: `git rebase --continue`  
+Or  
+Run this to cancel rebase: `git rebase --abort` 
+
 ## Working with new branch
 1. Create a new local branch: `git checkout -b <branch-name>`  
 2. Push the branch to remote: `git push -u origin <branch-name>`  
@@ -62,6 +66,19 @@ git rebase origin/master
 
 ## Remote
 1. See upstream branch access and info: `git remote -v`  
+2. Add upstream repo:  `git remote add origin <remote-url>`  
+
+## Upload local repo
+Create a repo on github or bitbucket from the website. Take its url and run the following commands.  
+
+```
+git init
+git add .
+git commit -m "<message>"
+git remote add origin <remote-url>
+git remote -v
+git push origin master
+```
 
 ## Reset and Revert
 1. Revert a previous commit (creates a new commit saying old commit reverted, used only if a commit is pushed to master): `git revert <commit-hash-code>` 
@@ -97,6 +114,21 @@ git push origin -u <new-branch-name> //Push new branch
 4. To remove detached commits: `git prune`  
 5. To remove local branches no longer in remote (only the un-tracked are removed, new branches aren't touched): `git remote prune` or `git fetch --prune`
 
+## Merge
+Normally you would want to raise a pull request to merge two branches.  
+However, it can also be done manually using merge.
+
+Here we are merging <branch1 to master>
+```
+git checkout master
+git merge <branch1>
+git branch -d <branch1>  //delete the branch if not needed
+```
+The default behaviour of "git merge" is to fast-forward, that means only head pointer is moved.
+However, if the head and incoming branch are out of sync it does three way merge (which creates another commit).
+Git handles both these cases internally we don't have to do anything unless there is a merge conflict.
+[Click here](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) for the link to right page.
+
 ## Stash
 1. Check list of commits in stash: `git stash list`  
 2. Save a commit to stash with a commit message: `git stash save "this is a message"`  
@@ -114,7 +146,7 @@ git push origin -u <new-branch-name> //Push new branch
 1. To cherry pick a commit from one branch to another first checkout the branch you want to be: `git cherry-pick -x <commit-hash-code>` (here -x auto-populates from where commit was taken)  
 
 ## Git Tags
-1. Tags are created to mark a historic point or mark release in git history, we can create one by going to said branch: `git tag -a <tag-name> -m "tag-message"`  
+1. Tags are created to mark a historic point or mark release in git history. We can create by going to the said branch: `git tag -a <tag-name> -m "tag-message"`  
 2. To see all tags using power of wild char *: `git tag -l "v1.*"`  
 3. Push tag to origin: `git push origin <tag-name>`  
 4. Delete tags: `git tag -d <tag-name>` or `git push origin -d <tag-name>`  
@@ -152,18 +184,17 @@ How to remove git ignored files from repo:
 [Click here](https://gist.github.com/kanwarpannu/9f0e589295a21338e27a791b3095557c) for sample windows git config file.  
 
 ## Git credential manager
-
 Git has 5 "main" modes of storing credentials for a repository.  
-1. *Default* - Don't store. Every connection will ask for a username and password.  
-2. *Cache* - Store credentials in memory for a small amount of time. Default timeout is 15 min.  
+1. **Default** - Don't store. Every connection will ask for a username and password.  
+2. **Cache** - Store credentials in memory for a small amount of time. Default timeout is 15 min.  
 `git config --global credential.helper cache`
 OR  
 `git config --global credential.helper 'cache --timeout 9000'` (Time in seconds) 
-3. *Store* - Store credentials to disk in a plain file.  
+3. **Store** - Store credentials to disk in a plain file.  
 `git config --global credential.helper store`  
 OR  
 `git config --global credential.helper 'store --file <dir>'`  
-4. *osxkeychain* (only on mac) - Store in apple keychain.  
+4. **Osxkeychain** (only on mac) - Store in apple keychain.  
 `git config --global credential.helper osxkeychain`  
-5. *windows credential manager* (windows) - Store in a windows credential manager (Search for credential manager in start menu).  
+5. **Windows credential manager** (windows) - Store in a windows credential manager (Search for credential manager in start menu).  
 `git config --global credential.helper manager`  
