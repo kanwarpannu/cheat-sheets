@@ -25,7 +25,7 @@
 `docker exec -it <container-name> bash`  
 
 9. Run a container in the detached mode (Here starting redis on port 6379):  
-`docker run -d -p 6379:6379 --name my-redis redis`  
+`docker run -d -p 6379:6379 --name my-redis redis <image-name>`  
 
 10. Pull a docker image from docker-hub:  
 `docker pull <image-name>:<tag>`  
@@ -47,12 +47,15 @@ COPY <location-file-to-copy> <where-to-copy-in-container>
 CMD ["<cmd-to-run>", "argument1"]
 EXPOSE <port-to-expose>
 ```  
-When using an image from docker-hub look at read-me to see the structure of Dockerfile, and steps on how to run it.
-
-## Example of Dockerfile for springboot project
+When using an image from docker-hub look at read-me to see the structure of Dockerfile, and steps on how to run it.  
+[Here](https://gist.github.com/kanwarpannu/5a3b4bbcd094a1ab299d39abbc5ca6e7) is a sample Dockerfile for java 8 projects.  
+  
 ## Docker compose
-It replaces the docker run command to make it easier: `docker-compose up`  
-
+It replaces the docker run command to make it easier to run.  
+Command is: `docker-compose up`  
+Or, if you want a fresh dockerfile build every time (important during dev) use:  
+`docker-compose build --no-cache && docker-compose up`  
+  
 A standard docker-compose.yml file:  
 ```
 version: '<latest-docker-compose-version>'
@@ -74,3 +77,5 @@ services:             //all services here
     depends_on:
       - <service-one>    //services, if, its dependent upon
 ```
+  
+[Here](https://gist.github.com/kanwarpannu/1db687901adc9d7ac969f5747fede6c7) is docker-compose.yml file for a project having 2 services.

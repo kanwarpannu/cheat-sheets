@@ -126,7 +126,7 @@ git branch -d <branch1>  //delete the branch if not needed
 ```
 The default behaviour of "git merge" is to fast-forward, that means only head pointer is moved.
 However, if the head and incoming branch are out of sync it does three way merge (which creates another commit).
-Git handles both these cases internally we don't have to do anything unless there is a merge conflict.
+Git handles both these cases internally we don't have to do anything unless there is a merge conflict.  
 [Click here](https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging) for the link to right page.
 
 ## Stash
