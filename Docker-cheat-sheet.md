@@ -36,6 +36,11 @@
 12. Mount a local directory(volume) for runtime (like to access property files, so you can change them on fly, only for dev):  
 `docker run -p 80:80 -v <local-directory>:<where-to-access-in-container> <image-name>`  
 
+13. Run docker commands with env variables:  
+`docker run docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t <image-name>`  
+Or (For java debugging, might not work with Mac)  
+`docker run -e "JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n" -p 8080:8080 -p 5005:5005 -t <image-name>`  
+
 ## Dockerfile
 Dockerfile is built into an Image, which when run, becomes container.  
 Ideally we want one process per service as a container lasts one lifetime of a service. 
