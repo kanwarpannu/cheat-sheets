@@ -140,7 +140,8 @@ Git handles both these cases internally we don't have to do anything unless ther
 
 ## Amend and Squash commits
 1. To append the current changes to a past commit: `git commit --amend` or `git commit --amend -m "This is message"` or `git commit --amend --no-edit`  
-2. To squash previous commits use rebase in the interactive mode: `git rebase -i HEAD~<number-of-commit>`
+2. To squash previous commits use rebase in the interactive mode: `git rebase -i HEAD~<number-of-commit>`  
+3. To amend the author: `git commit --amend --author="Author Name <email@address.com>"`
 
 ## Cherry-pick
 1. To cherry pick a commit from one branch to another first checkout the branch you want to be: `git cherry-pick -x <commit-hash-code>` (here -x auto-populates from where commit was taken)  

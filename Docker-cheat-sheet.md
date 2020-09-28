@@ -57,9 +57,12 @@ When using an image from docker-hub look at read-me to see the structure of Dock
   
 ## Docker compose
 It replaces the docker run command to make it easier to run.  
-Command is: `docker-compose up`  
-Or, if you want a fresh dockerfile build every time (important during dev) use:  
-`docker-compose build --no-cache && docker-compose up`  
+Command is: `docker-compose up -d` (d stands for the detached mode)  
+
+If you want a fresh dockerfile build every time (important during dev) use:  
+`docker-compose build --no-cache && docker-compose up -d`  
+
+To stop all container in a docker-compose file: `docker-compose down` or `docker-compose down -v` (deletes all volumes)
   
 A standard docker-compose.yml file:  
 ```
