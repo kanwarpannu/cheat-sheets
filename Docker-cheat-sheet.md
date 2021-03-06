@@ -27,17 +27,29 @@
 9. Run a container in the detached mode (Here starting redis on port 6379):  
 `docker run -d -p 6379:6379 --name my-redis redis <image-name>`  
 
-10. Pull a docker image from docker-hub:  
+10. To copy a file to container:  
+`docker cp <local-file-to-copy>:<location-in-container>`  
+
+11. Create docker image from current state of docker container:  
+`docker commit <container-id> <new-image-repo>:<image-version>`  
+
+12. Tag your docker image (Required before pushing upstream):  
+`docker tag <local/source-image-repo>:<image-version> <docker-registry-url-with-port>/<project-name>/<image-repo>:<image-version>`  
+
+13. Push docker image to upstream docker registry:  
+`docker push <docker-registry-url-with-port>/<project-name>/<image-repo>:<image-version>`  
+
+14. Pull a docker image from docker-hub:  
 `docker pull <image-name>:<tag>`  
 
-11. Build Dockerfile:  
-`docker build -t <name-for-image> <dir-of-Dockerfile>`  
+15. Build Dockerfile:  
+`docker build -t <name-for-image> <dir-of-Dockerfile>`
 
-12. Mount a local directory(volume) for runtime (like to access property files, so you can change them on fly, only for dev):  
+16. Mount a local directory(volume) for runtime (like to access property files, so you can change them on fly, only for dev):  
 `docker run -p 80:80 -v <local-directory>:<where-to-access-in-container> <image-name>`  
 
-13. Run docker commands with env variables:  
-`docker run docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t <image-name>`  
+17. Run docker commands with env variables:  
+`docker run -e "SPRING_PROFILES_ACTIVE=prod" -p 8080:8080 -t <image-name>`  
 Or (For java debugging, might not work with Mac)  
 `docker run -e "JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,address=5005,server=y,suspend=n" -p 8080:8080 -p 5005:5005 -t <image-name>`  
 
