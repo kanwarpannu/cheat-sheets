@@ -6,8 +6,9 @@ The reason for large context causing issues is:
  After 30 plus tools agent performance starts degrading, around 100 typically it colapses. So implementing RAG over tool selection can have a lot better results.
 
 Coding agent Prompting suggestions:
-1. Start by saying create a plan before you start editing files.
-2. End the prompt by saying ask me as manay questions as needed.
+1. Start by saying `I want to build this new feature can you explore code base and suggest 2-3 different ways to build it before you start making any changes`.  
+2. Then select an approach and say `create a plan before you start editing files`.  
+3. End every prompt by saying `ask me as manay questions as needed`.  
 
 Common workflows to flow with coding agents:
 1. Explore -> Plan -> Confirm -> Code -> Commit (used for most common coding tasks)
@@ -24,6 +25,7 @@ When starting on a codebase:
 
 Other suggestions:
 1. Use different git worktrees if using multiple coding agents on same repos. 
+2. Ask coding agent to suggest commit message. Its great at it.
 
 TODO:
  Handling million lines of code ???
