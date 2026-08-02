@@ -95,6 +95,39 @@ To create a custom skill:
 
 ---
 
-## TODO
+## Cursor AI Equivalents
 
-- The above stuff needs to have Cursor AI equivalents as well. ????
+This section maps each Claude Code concept to its Cursor equivalent. Cursor is an IDE extension rather than a full agent framework, so some features have no direct parallel.
+
+### Setting Up a Codebase
+
+- **`CLAUDE.md`** → create a `.cursorrules` file at the project root. Same purpose — coding style, architecture conventions, agent guidance. No `/init` command; create it manually.
+- **Per-folder `CLAUDE.md` files** → not supported. `.cursorrules` is root-only. Use `.cursor/rules/*.mdc` files with a `globs:` field to scope rules to file patterns instead (e.g. `**/*.java` to target all Java files).
+- **`.claude/rules/` path-scoped rules** → `.cursor/rules/*.mdc` files with YAML frontmatter. Fields: `description` (one-liner summary), `globs` (file patterns that auto-attach the rule), `alwaysApply: true/false` (true = applies to every request, false = only when matching files are in scope).
+- **`.claude/settings.json` deny rules** → no equivalent. Cursor has no mechanism to block specific file reads.
+- **`.mcp.json`** → `.cursor/mcp.json` at the project root for project-level MCP servers. Global MCP servers are configured in Cursor's user settings.
+
+### Working with Large Codebases
+
+- **Layered CLAUDE.md strategy** → use `.cursor/rules/*.mdc` files with `globs:` to approximate module-level scoping by file pattern (e.g. one `.mdc` for `src/api/**`, another for `src/data/**`).
+- **Deny rules** → no equivalent in Cursor.
+- **grep/find navigation** → identical advice applies; works in Cursor's terminal and Agent mode.
+- **Subagents for exploration** → no equivalent. Cursor operates in a single context window.
+
+### Managing Context Day-to-Day
+
+- **`/context`, `/compact`, `/rewind`** → no equivalents. Cursor manages the context window automatically and does not expose these controls.
+- **Parallel agents + git worktrees** → no equivalent.
+- **Commit message suggestions** → works the same; just ask Cursor to suggest a commit message.
+
+### Common Workflows
+
+All three workflows (Explore → Plan → Confirm → Code → Commit, TDD, Screenshot → Iterate) work in Cursor with the same prompting discipline. Screenshot iteration is especially smooth — paste images directly into Cursor chat without any extra tooling. There is no built-in workflow enforcement; document your preferred workflow in `.cursorrules` to guide the agent's behavior.
+
+### Skills and Customization
+
+No equivalent for the `.claude/skills/` system. Document reusable workflows as named sections in `.cursorrules` instead.
+
+### MCP Servers
+
+Context7, Ponytail, and Superpowers all work with Cursor. Configure them in `.cursor/mcp.json` at the project root.
