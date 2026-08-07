@@ -202,11 +202,19 @@ Don't expose every available capability to every agent. Give each agent the mini
 
 ## RAG (Retrieval-Augmented Generation)
 A pattern where relevant documents are fetched from an external knowledge base and injected into the prompt before the model generates a response.
-Pairs naturally with embeddings — documents are stored as vectors and retrieved by semantic similarity to the query.
 
 **Why it matters:** Models have a training cutoff and cannot access private data. RAG gives them up-to-date or domain-specific context without retraining.
 
-Flow: `User query → Embed query → Search vector DB → Inject top results into prompt → Generate response`
+**Semantic Search**
+Documents are first chunked, then each chunk is converted into a vector using an embedding model and stored in a vector database. At query time, the query is embedded and compared against stored vectors by similarity (e.g. cosine). Retrieve by meaning, not exact wording — "leave policy" finds relevant chunks even if they say "vacation entitlement". Best for conceptual or paraphrased queries.
+
+**Lexical Search (BM25)**
+A keyword-based ranking algorithm that scores chunks by term frequency and how rare the term is across all chunks (inverse document frequency). Unlike semantic search, it matches exact or near-exact terms. Best for precise lookups — product codes, proper nouns, acronyms — where semantic similarity can mislead. Use when the query contains specific identifiers that must appear verbatim.
+
+**Hybrid Retrieval with RRF**
+Running both approaches produces two independently ranked lists. Reciprocal Rank Fusion (RRF) merges them into a single ranking by combining each chunk's position in both lists — a chunk that ranks highly in both scores gets the strongest combined score. Hybrid retrieval is more robust than either method alone: semantic search catches conceptual matches while BM25 anchors precise terms.
+
+Flow: `User query → [Embed → Semantic search] + [BM25 lexical search] → RRF merge → Inject top results into prompt → Generate response`
 
 ---
 
