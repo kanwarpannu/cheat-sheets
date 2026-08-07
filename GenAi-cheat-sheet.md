@@ -78,3 +78,8 @@ The maximum number of tokens a model can "see" at once — both input and output
 A pattern for AI agents that alternates between thinking and doing to solve multi-step problems.
    The agent loops through: **Thought** (reason about what to do next) → **Action** (call a tool or take a step) → **Observation** (see the result) — repeating until a final answer is reached.
    The intermediate Thought/Action/Observation steps form an ephemeral scratchpad that helps the model build on its own reasoning, then is discarded once the response is returned.  
+12. **Diffusion Models:**  
+A class of generative AI models used to produce images, audio, and video (e.g., Stable Diffusion, DALL·E, Sora).
+   They work in two phases: **forward diffusion** gradually adds random noise to training data until it becomes pure noise, and **reverse diffusion** trains a neural network to iteratively denoise that noise back into a clean sample.
+   At inference time, the model starts from random noise and repeatedly applies the learned denoising steps to generate a new image (or other output) from scratch.
+   Text-to-image models combine diffusion with a text encoder so that the denoising process is guided by a prompt, steering the output toward the described content.
