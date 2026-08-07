@@ -11,6 +11,7 @@ The practice of crafting inputs to guide a model toward better outputs.
 - **Chain-of-thought:** Asking the model to "think step by step" before giving a final answer, which improves accuracy on reasoning tasks.
 
 ### <u>Prompt Engineering Techniques</u>
+This works with both text and image inputs.
 
 **Use a list for instructions**  
 Break multi-part instructions into a numbered or bulleted list. Prose paragraphs cause models to miss or merge steps; a list forces each requirement to be addressed independently.
