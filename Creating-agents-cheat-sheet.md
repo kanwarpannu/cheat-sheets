@@ -239,3 +239,12 @@ Persists across sessions — survives when the conversation ends and is availabl
 
 **Agent Memory Flow:**  
 `User input → Read long-term memory (RAG from vector DB) → Load short-term memory (conversation history) → Process with ephemeral scratchpad (reasoning steps) → Respond → Write important outcomes back to long-term memory`
+
+**4. Cache memory:**  
+A prompt caching mechanism offered by LLM providers (e.g., Anthropic's `cache_control`) that stores and reuses repeated input tokens across API calls — reducing latency and cost for inputs that stay the same between requests.  
+- **Can be applied to:** System prompts, user messages, tool definitions, and tool call results — any part of the input that doesn't change between calls.  
+- **Exact-match only:** The cache is only hit when the token sequence matches exactly. Even a single character difference produces a cache miss and reprocesses the full input.  
+- **Minimum token threshold:** The content marked for caching must be at least **1,024 tokens** — shorter blocks are not cached even if marked.  
+- **TTL / expiry:** Cached content expires after a set time-to-live (e.g., **5 minutes** for standard cache, **1 hour** for extended cache on supported tiers). After expiry, the next call reprocesses and re-caches the block.  
+- **Use case:** An agent that repeatedly sends a large system prompt, a long tool schema list, or a big knowledge document as part of every call — caching those blocks avoids re-processing the same tokens on every request, cutting latency and token costs significantly.
+
